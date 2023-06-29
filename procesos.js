@@ -1,14 +1,35 @@
-//PROCESS => permite obtener informacion sobre el ambiente que esta ejecutado
 
-//process.argv=> imprime donde esta instlado node y la carpeta actual del project
-//console.log(process.argv);
+//INPUT Y OUTPUT
 
-function param(p) {
-    let index=process.argv.indexOf(p);//buscar la posi dodne esta el p
-    return process.argv[index+1];
+let questions=["Cual es tu nombre", "cuaños años tiene", "Lengiuaje de programacion fav"];
+
+let rta=[];
+
+function pregunta(i) {
+    process.stdout.write(questions[i]);
 }
 
-//node procesos --nombre "Ivan" --edad 20
-console.log(param('--nombre'));//Ivan
+function imprimir() {
+    console.log(`el nombres es ${rta[0]} tiene ${rta[1]} y le gusta el lenguaje de programacion ${rta[2]}`);
+}
 
+process.stdin.on('data', function(data){
+    rta.push(data.toString());
+    if (rta.length<questions.length) {
+        pregunta(rta.length);
+    }else{
+        imprimir();
+        process.exit();
+    }
+})
 
+pregunta(0);
+
+/*
+//imprimir en la terminal un mensaje
+process.stdout.write("Dime tu nombre: ");
+
+process.stdin.on('data', function(data){
+    process.stdout.write("el nombre escrito es: " + data.toString());
+    process.exit();
+})*/
